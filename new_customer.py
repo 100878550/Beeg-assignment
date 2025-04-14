@@ -22,17 +22,13 @@ class testNewCustomer(unittest.TestCase):
         driver = self.driver
         driver.find_element(By.NAME, "uid").send_keys("")
         driver.find_element(By.NAME, "password").send_keys("password123")
-        driver.find_element(By.NAME, "btnLogin").click()
+
         
-        # Wait for the page to load and the element to be present
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.LINK_TEXT, "New Customer"))
-        )
         
-        driver.find_element(By.LINK_TEXT, "New Customer").click()
         
         # Verify the presence of the 'Customer Name' field
-        assert driver.find_element(By.NAME, "name").is_displayed(), "Customer Name must not be blank"
+        error_message = driver.find_element(By.ID, "message23")
+        assert "User-ID must not be blank" in error_message, "wrong"
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
