@@ -13,7 +13,7 @@ class testNewCustomer(unittest.TestCase):
         cls.driver.maximize_window()
         cls.driver.get("http://demo.guru99.com/V4/")
         
-    
+    @classmethod
     def teardown_method(cls):
         cls.driver.quit()
     
