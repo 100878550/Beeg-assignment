@@ -19,7 +19,7 @@ class testEditCustomer(unittest.TestCase):
     def teardown_method(cls):
         cls.driver.quit()
     
-    def manager_login(self):
+    def test_manager_login(self):
         driver = self.driver
         # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
         # driver.find_element(By.NAME, "btnLogin").click()
@@ -46,7 +46,7 @@ class testEditCustomer(unittest.TestCase):
         time.sleep(10)
 
 
-    def verify_customer_id(self):
+    def test_verify_customer_id(self):
         driver = self.driver
         customer_id = "33791"
         # customer_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
@@ -85,7 +85,7 @@ class testEditCustomer(unittest.TestCase):
         success_message = driver.find_element(By.CSS_SELECTOR,".heading3").text
         assert "Edit Customer" in success_message, "Error Not Directed To Edit Customer Page"
 
-    def verify_address_field(self):
+    def test_verify_address_field(self):
         driver = self.driver
 
         #EC5
@@ -94,7 +94,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message3").text
         assert "Address Field must not be blank" in error_message, "Empty Address Error Message Missing"
     
-    def verify_city_field(self):
+    def test_verify_city_field(self):
         driver = self.driver
 
         #EC6
@@ -121,7 +121,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message4").text
         assert "Special characters are not allowed" in error_message, "City Special Character Error Message Missing"
 
-    def verify_state_field(self):
+    def test_verify_state_field(self):
         driver = self.driver
 
         #EC9
@@ -151,7 +151,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message5").text
         assert "Special characters are not allowed" in error_message, "State Special Character Error Message Missing"
 
-    def verify_pin_field(self):
+    def test_verify_pin_field(self):
         driver = self.driver
 
         #EC12
@@ -178,7 +178,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message6").text
         assert "Special characters are not allowed" in error_message, "Pin Special Character Error Message Missing"
 
-    def verify_mobile_number_field(self):
+    def test_verify_mobile_number_field(self):
         driver = self.driver
         #EC16
         driver.find_element(By.NAME, "telephoneno").clear()
@@ -202,7 +202,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message7").text
         assert "Special characters are not allowed" in error_message, "Phone Special Character Error Message Missing"
 
-    def verify_email_field(self):
+    def test_verify_email_field(self):
         driver = self.driver
         #EC18
         driver.find_element(By.NAME, "emailid").clear()
@@ -231,7 +231,7 @@ class testEditCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message9").text
         assert "Email-ID is not valid" in error_message, "Email Invalid Error Message Missing"
 
-    def submit_button(self):
+    def test_submit_button(self):
         driver = self.driver
         #EC20 -- it opens blank page not sure how to assert it (the changes save)
         driver.find_element(By.NAME, "sub").click()
@@ -239,14 +239,14 @@ class testEditCustomer(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testEditCustomer("manager_login"))
+    suite.addTest(testEditCustomer("test_manager_login"))
     # suite.addTest(testEditCustomer("create_customer"))
-    suite.addTest(testEditCustomer("verify_customer_id"))
-    suite.addTest(testEditCustomer("verify_address_field"))
-    suite.addTest(testEditCustomer("verify_city_field"))
-    suite.addTest(testEditCustomer("verify_state_field"))
-    suite.addTest(testEditCustomer("verify_pin_field"))
-    suite.addTest(testEditCustomer("verify_mobile_number_field"))
-    suite.addTest(testEditCustomer("verify_email_field"))
+    suite.addTest(testEditCustomer("test_verify_customer_id"))
+    suite.addTest(testEditCustomer("test_verify_address_field"))
+    suite.addTest(testEditCustomer("test_verify_city_field"))
+    suite.addTest(testEditCustomer("test_verify_state_field"))
+    suite.addTest(testEditCustomer("test_verify_pin_field"))
+    suite.addTest(testEditCustomer("test_verify_mobile_number_field"))
+    suite.addTest(testEditCustomer("test_verify_email_field"))
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

@@ -20,7 +20,7 @@ class testDeleteCustomer(unittest.TestCase):
     def teardown_method(cls):
         cls.driver.quit()
     
-    def manager_login(self):
+    def test_manager_login(self):
         driver = self.driver
         # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
         # driver.find_element(By.NAME, "btnLogin").click()
@@ -31,7 +31,7 @@ class testDeleteCustomer(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
 
-    def create_customer(self):
+    def test_create_customer(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "New Customer").click()
         driver.find_element(By.NAME, "name").send_keys("TestCustomer")
@@ -49,7 +49,7 @@ class testDeleteCustomer(unittest.TestCase):
         customer_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
 
 
-    def verify_customer_id(self):
+    def test_verify_customer_id(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "Delete Customer").click()
 
@@ -86,7 +86,7 @@ class testDeleteCustomer(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message14").text
         assert "First character can not have space" in error_message, "Customer ID First Space Blank Error Message Missing"
 
-    def submit_button(self):
+    def test_submit_button(self):
         driver = self.driver
         #DC6
         driver.find_element(By.NAME, "cusid").clear()
@@ -112,7 +112,7 @@ class testDeleteCustomer(unittest.TestCase):
         alert.accept()
         assert "Customer does not existcould not be deleted!! First delete all accounts of this customer then delete the customer" in alertText, "Your Customer ID Message Missing"
     
-    def reset_button(self):
+    def test_reset_button(self):
         driver = self.driver
         #DC8
         driver.find_element(By.NAME, "cusid").clear()
@@ -132,9 +132,9 @@ class testDeleteCustomer(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testDeleteCustomer("manager_login"))
-    suite.addTest(testDeleteCustomer("create_customer"))
-    suite.addTest(testDeleteCustomer("verify_customer_id"))
-    suite.addTest(testDeleteCustomer("submit_button"))
+    suite.addTest(testDeleteCustomer("test_manager_login"))
+    suite.addTest(testDeleteCustomer("test_create_customer"))
+    suite.addTest(testDeleteCustomer("test_verify_customer_id"))
+    suite.addTest(testDeleteCustomer("test_submit_button"))
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

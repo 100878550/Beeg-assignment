@@ -13,13 +13,14 @@ class testEditAccount(unittest.TestCase):
     def setUpClass(cls):
         cls.driver = webdriver.Chrome()
         cls.driver.maximize_window()
+        cls.driver.implicitly_wait(10)
         cls.driver.get("http://demo.guru99.com")
 
     @classmethod
     def teardown_method(cls):
         cls.driver.quit()
     
-    def manager_login(self):
+    def test_manager_login(self):
         driver = self.driver
         # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
         # driver.find_element(By.NAME, "btnLogin").click()
@@ -30,7 +31,7 @@ class testEditAccount(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
     
-    def verify_account_number(self):
+    def test_verify_account_number(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "Edit Account").click()
 
@@ -67,14 +68,15 @@ class testEditAccount(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message2").text
         assert "Characters are not allowed" in error_message, "Acount Number First Space Blank Error Message Missing"
 
-    def verify_submit_button(self):
+    def test_verify_submit_button(self):
         driver = self.driver
-        #EA6 -- I couldnt make account to get correct number
+        #EA6 -- server error
         driver.find_element(By.NAME, "accountno").clear()
-        driver.find_element(By.NAME, "accountno").send_keys("33791")
+        driver.find_element(By.NAME, "accountno").send_keys("144230")
         driver.find_element(By.NAME, "AccSubmit").click()
         
         #EA7 
+        time.sleep(3)
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("12345")
         driver.find_element(By.NAME, "AccSubmit").click()
@@ -83,7 +85,7 @@ class testEditAccount(unittest.TestCase):
         alert.accept()
         assert "Account does not exist" in alertText, "InValid Acount Number Error Message Missing"
 
-    def verify_reset_button(self):
+    def test_verify_reset_button(self):
         driver = self.driver
         #EA8
         driver.find_element(By.NAME, "accountno").clear()
@@ -100,10 +102,10 @@ class testEditAccount(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testEditAccount("manager_login"))
-    suite.addTest(testEditAccount("verify_account_number"))
-    suite.addTest(testEditAccount("verify_submit_button"))
-    suite.addTest(testEditAccount("verify_reset_button"))
+    suite.addTest(testEditAccount("test_manager_login"))
+    suite.addTest(testEditAccount("test_verify_account_number"))
+    suite.addTest(testEditAccount("test_verify_submit_button"))
+    suite.addTest(testEditAccount("test_verify_reset_button"))
 
 
     runner = unittest.TextTestRunner(verbosity=2)

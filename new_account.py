@@ -19,7 +19,7 @@ class testNewAccount(unittest.TestCase):
     def teardown_method(cls):
         cls.driver.quit()
     
-    def manager_login(self):
+    def test_manager_login(self):
         driver = self.driver
         # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
         # driver.find_element(By.NAME, "btnLogin").click()
@@ -30,7 +30,7 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
     
-    def verify_customer_id(self):
+    def test_verify_customer_id(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "New Account").click()
 
@@ -72,7 +72,7 @@ class testNewAccount(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message14").text
         assert "First character can not have space" in error_message, "Customer ID First Character Blank Message Missing"
 
-    def verify_initial_deposit(self):
+    def test_verify_initial_deposit(self):
         driver = self.driver
 
         #NA6
@@ -112,7 +112,7 @@ class testNewAccount(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message19").text
         assert "First character can not have space" in error_message, "Initial Deposit First Character Blank Message Missing"
 
-    def verify_account_type_dropdown(self):
+    def test_verify_account_type_dropdown(self):
         driver = self.driver
 
         #NA11
@@ -125,7 +125,7 @@ class testNewAccount(unittest.TestCase):
         selection = driver.find_element(By.NAME, "selaccount").text
         assert "Current" in selection, "Savings Selection Error"
     
-    def reset_button(self):
+    def test_reset_button(self):
         driver = self.driver
 
         #NA13
@@ -141,8 +141,8 @@ class testNewAccount(unittest.TestCase):
         text = driver.find_element(By.NAME, "cusid").text
         assert "" in text, "Reset Button Not Working"
         
-    def submit_button(self):
-        customer_id = "33791"
+    def test_submit_button(self):
+        customer_id = "618426"
         driver = self.driver
 
         #NA14 -- brings to blank page
@@ -151,7 +151,7 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
         driver.find_element(By.NAME, "button2").click()
 
-        #NA15
+        #NA15 -- fails because of blank page jumpscare
         driver.find_element(By.NAME, "cusid").clear()
         driver.find_element(By.NAME, "cusid").send_keys(customer_id)
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
@@ -160,12 +160,12 @@ class testNewAccount(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testNewAccount("manager_login"))
-    suite.addTest(testNewAccount("verify_customer_id"))
-    suite.addTest(testNewAccount("verify_initial_deposit"))
-    suite.addTest(testNewAccount("verify_account_type_dropdown"))
-    suite.addTest(testNewAccount("reset_button"))
-    suite.addTest(testNewAccount("submit_button"))
+    suite.addTest(testNewAccount("test_manager_login"))
+    suite.addTest(testNewAccount("test_verify_customer_id"))
+    suite.addTest(testNewAccount("test_verify_initial_deposit"))
+    suite.addTest(testNewAccount("test_verify_account_type_dropdown"))
+    suite.addTest(testNewAccount("test_reset_button"))
+    suite.addTest(testNewAccount("test_submit_button"))
 
     runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite) 
+    runner.run(suite)

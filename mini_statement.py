@@ -14,13 +14,14 @@ class testMiniStatement(unittest.TestCase):
     def setUpClass(cls):
         cls.driver = webdriver.Chrome()
         cls.driver.maximize_window()
+        cls.driver.implicitly_wait(10)  # Implicit wait for elements to be present
         cls.driver.get("http://demo.guru99.com")
 
     @classmethod
     def teardown_method(cls):
         cls.driver.quit()
     
-    def manager_login(self):
+    def test_manager_login(self):
         driver = self.driver
         # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
         # driver.find_element(By.NAME, "btnLogin").click()
@@ -31,9 +32,9 @@ class testMiniStatement(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
 
-    def verify_account_number(self):
+    def test_verify_account_number(self):
         driver = self.driver
-        driver.find_element(By.LINK_TEXT, "Mini Statement").click()
+        driver.find_element(By.XPATH, "/html[1]/body[1]/div[3]/div[1]/ul[1]/li[13]/a[1]").get_attribute("href").click()
 
         #MS1
         driver.find_element(By.NAME, "accountno").send_keys(Keys.TAB)
@@ -68,7 +69,7 @@ class testMiniStatement(unittest.TestCase):
         error_message = driver.find_element(By.ID, "message2").text
         assert "Characters are not allowed" in error_message, "Account Number First Space Blank Error Message Missing"
 
-    def verify_submit_button(self):
+    def test_verify_submit_button(self):
         driver = self.driver
 
         #MS6 -- wasnt able to create account so dont have valid account
@@ -92,7 +93,7 @@ class testMiniStatement(unittest.TestCase):
         alert.accept()
         assert "Account does not exist" in alertText, "Invalid Account Submit Not Working"
 
-    def verify_reset_button(self):
+    def test_verify_reset_button(self):
         driver = self.driver
         #MS8
         driver.find_element(By.NAME, "accountno").clear()
@@ -118,10 +119,10 @@ class testMiniStatement(unittest.TestCase):
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testMiniStatement("manager_login"))
-    suite.addTest(testMiniStatement("verify_account_number"))
-    suite.addTest(testMiniStatement("verify_submit_button"))
-    suite.addTest(testMiniStatement("verify_reset_button"))
+    suite.addTest(testMiniStatement("test_manager_login"))
+    suite.addTest(testMiniStatement("test_verify_account_number"))
+    suite.addTest(testMiniStatement("test_verify_submit_button"))
+    suite.addTest(testMiniStatement("test_verify_reset_button"))
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
