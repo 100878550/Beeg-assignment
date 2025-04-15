@@ -29,7 +29,23 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "uid").send_keys("mngr618426")
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
-    
+    def test_create_customer(self):
+        driver = self.driver
+        driver.find_element(By.LINK_TEXT, "New Customer").click()
+        driver.find_element(By.NAME, "name").send_keys("TestCustomer")
+        driver.find_element(By.NAME, "dob").send_keys("1999" + Keys.TAB + "1023")
+        driver.find_element(By.NAME, "addr").send_keys("123 Street")
+        driver.find_element(By.NAME, "city").send_keys("Test City")
+        driver.find_element(By.NAME, "state").send_keys("Test State")
+        driver.find_element(By.NAME, "pinno").send_keys("123456")
+        driver.find_element(By.NAME, "telephoneno").send_keys("123")
+        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer52994@gmail.com")
+        driver.find_element(By.NAME, "password").send_keys("123")
+        driver.find_element(By.NAME, "sub").click()
+        time.sleep(1)
+        global customer_id
+        customer_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
+
     def test_verify_customer_id(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "New Account").click()
@@ -114,7 +130,7 @@ class testNewAccount(unittest.TestCase):
 
     def test_verify_account_type_dropdown(self):
         driver = self.driver
-
+        
         #NA11
         driver.find_element(By.XPATH, "//select[@name='selaccount']/option[text()='Savings']").click()
         selection = driver.find_element(By.NAME, "selaccount").text
@@ -142,30 +158,42 @@ class testNewAccount(unittest.TestCase):
         assert "" in text, "Reset Button Not Working"
         
     def test_submit_button(self):
-        customer_id = "618426"
+        customer_id = "17425"
         driver = self.driver
 
-        #NA14 -- brings to blank page
+        #NA14 
         driver.find_element(By.NAME, "cusid").clear()
         driver.find_element(By.NAME, "cusid").send_keys("123456")
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
         driver.find_element(By.NAME, "button2").click()
+        time.sleep(2)
+        alert = driver.switch_to.alert
+        alertText = alert.text
+        alert.accept()
+        assert "Customer does not exist!!" in alertText, "not work"
 
-        #NA15 -- fails because of blank page jumpscare
+        #NA15 
         driver.find_element(By.NAME, "cusid").clear()
         driver.find_element(By.NAME, "cusid").send_keys(customer_id)
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
         driver.find_element(By.NAME, "button2").click()
+        time.sleep(50)
+        text = driver.find_element(By.CLASS_NAME, "header3").text
+        
+        assert "Account Generated Successfully!!!" in text, "bad"
+        
 
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(testNewAccount("test_manager_login"))
+    suite.addTest(testNewAccount("test_create_customer"))
     suite.addTest(testNewAccount("test_verify_customer_id"))
     suite.addTest(testNewAccount("test_verify_initial_deposit"))
     suite.addTest(testNewAccount("test_verify_account_type_dropdown"))
     suite.addTest(testNewAccount("test_reset_button"))
     suite.addTest(testNewAccount("test_submit_button"))
+  
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
