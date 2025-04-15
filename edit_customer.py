@@ -40,13 +40,15 @@ class testEditCustomer(unittest.TestCase):
         driver.find_element(By.NAME, "state").send_keys("Test State")
         driver.find_element(By.NAME, "pinno").send_keys("123456")
         driver.find_element(By.NAME, "telephoneno").send_keys("123")
-        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer154@gmail.com")
+        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer194@gmail.com")
         driver.find_element(By.NAME, "password").send_keys("123")
         driver.find_element(By.NAME, "sub").click()
+        time.sleep(10)
 
 
     def verify_customer_id(self):
         driver = self.driver
+        customer_id = "33791"
         # customer_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
         driver.find_element(By.LINK_TEXT, "Edit Customer").click()
 
@@ -78,7 +80,7 @@ class testEditCustomer(unittest.TestCase):
 
         #EC4
         driver.find_element(By.NAME, "cusid").clear()
-        driver.find_element(By.NAME, "cusid").send_keys("21303")
+        driver.find_element(By.NAME, "cusid").send_keys(customer_id)
         driver.find_element(By.NAME, "AccSubmit").click()
         success_message = driver.find_element(By.CSS_SELECTOR,".heading3").text
         assert "Edit Customer" in success_message, "Error Not Directed To Edit Customer Page"
