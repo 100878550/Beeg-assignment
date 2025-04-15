@@ -21,13 +21,13 @@ class testNewCustomer(unittest.TestCase):
     
     def manager_login(self):
         driver = self.driver
-        driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
-        driver.find_element(By.NAME, "btnLogin").click()
-        user_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
-        password = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(5) td:nth-child(2)").text
+        # driver.find_element(By.NAME, "emailid").send_keys("ManagerTest@gmail.com")
+        # driver.find_element(By.NAME, "btnLogin").click()
+        # user_id = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(4) td:nth-child(2)").text
+        # password = driver.find_element(By.CSS_SELECTOR, "tbody tr:nth-child(5) td:nth-child(2)").text
         driver.get("https://demo.guru99.com/V4/")
-        driver.find_element(By.NAME, "uid").send_keys(user_id)
-        driver.find_element(By.NAME, "password").send_keys(password)
+        driver.find_element(By.NAME, "uid").send_keys("mngr618426")
+        driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
 
 
