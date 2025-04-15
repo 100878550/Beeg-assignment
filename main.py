@@ -24,8 +24,8 @@ while True:
     user_input = input("Please enter your choice: ")
 
     if user_input == '1':
-        suite = unittest.TestLoader().loadTestsFromTestCase(new_customer.testNewCustomer)
-        runner = unittest.TextTestRunner(verbosity=2).run(suite)
+        suite = unittest.TestLoader().loadTestsFromTestCase(new_customer.testNewCustomer)  # this just loads all the methods with test_ infront
+        runner = unittest.TextTestRunner(verbosity=2).run(suite) # abd runs them
 
     elif user_input == '2':
         suite = unittest.TestLoader().loadTestsFromTestCase(edit_customer.testEditCustomer)
