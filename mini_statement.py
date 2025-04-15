@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver import Keys, ActionChains
 from selenium.webdriver.common.alert import Alert
 
-class testBalanceEnquiry(unittest.TestCase):
+class testMiniStatement(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Chrome()
@@ -33,39 +33,45 @@ class testBalanceEnquiry(unittest.TestCase):
 
     def verify_account_number(self):
         driver = self.driver
-        driver.find_element(By.LINK_TEXT, "Balance Enquiry").click()
+        driver.find_element(By.LINK_TEXT, "Mini Statement").click()
 
-        #BE1
+        #MS1
         driver.find_element(By.NAME, "accountno").send_keys(Keys.TAB)
         error_message = driver.find_element(By.ID, "message2").text
-        assert "Account Number must not be blank" in error_message, "Acount Number Blank Error Message Missing"
+        assert "Account Number must not be blank" in error_message, "Blank Account Number Error Message Missing"
 
-        #BE2
+        #MS2
         driver.find_element(By.NAME, "accountno").send_keys("Acc123")
         error_message = driver.find_element(By.ID, "message2").text
-        assert "Characters are not allowed" in error_message, "Acount Number Character Error Message Missing"
+        assert "Characters are not allowed" in error_message, "Account Number Character Error Message Missing" 
 
-        #BE3
+        #MS3
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("123!@#")
         error_message = driver.find_element(By.ID, "message2").text
-        assert "Special characters are not allowed" in error_message, "Acount Number Special Character Error Message Missing"
+        assert "Special characters are not allowed" in error_message, "Account Number Special Character Error Message Missing"
 
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("!@#")
         error_message = driver.find_element(By.ID, "message2").text
-        assert "Special characters are not allowed" in error_message, "Acount Number Special Character Error Message Missing"
+        assert "Special characters are not allowed" in error_message, "Account Number Special Character Error Message Missing"
 
-        #BE4
+        #MS4
+        driver.find_element(By.NAME, "accountno").clear()
+        driver.find_element(By.NAME, "accountno").send_keys("123 12")
+        error_message = driver.find_element(By.ID, "message2").text
+        assert "Characters are not allowed" in error_message, "Account Number Blank Space Error Message Missing"
+
+        #MS5
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys(" ")
         error_message = driver.find_element(By.ID, "message2").text
-        assert "Characters are not allowed" in error_message, "Acount Number First Space Blank Error Message Missing"
+        assert "Characters are not allowed" in error_message, "Account Number First Space Blank Error Message Missing"
 
     def verify_submit_button(self):
         driver = self.driver
 
-        #BE5 -- wasnt able to create account so dont have valid account
+        #MS6 -- wasnt able to create account so dont have valid account
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("123456")
         driver.find_element(By.NAME, "AccSubmit").click()
@@ -75,7 +81,7 @@ class testBalanceEnquiry(unittest.TestCase):
         alertText = alert.text
         alert.accept()
         assert "Account deleted successfully" in alertText, "Valid Account Submit Not Working"
-        #BE6
+        #MS7
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("123456")
         driver.find_element(By.NAME, "AccSubmit").click()
@@ -88,7 +94,7 @@ class testBalanceEnquiry(unittest.TestCase):
 
     def verify_reset_button(self):
         driver = self.driver
-        #BE7
+        #MS8
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("qwer")
         driver.find_element(By.NAME, "res").click()
@@ -105,12 +111,17 @@ class testBalanceEnquiry(unittest.TestCase):
         assert "" in text_field, "Text Not Reset"
 
 
+
+
+
+
+
 if __name__ == "__main__":
     suite = unittest.TestSuite()
-    suite.addTest(testBalanceEnquiry("manager_login"))
-    suite.addTest(testBalanceEnquiry("verify_account_number"))
-    suite.addTest(testBalanceEnquiry("verify_submit_button"))
-    suite.addTest(testBalanceEnquiry("verify_reset_button"))
+    suite.addTest(testMiniStatement("manager_login"))
+    suite.addTest(testMiniStatement("verify_account_number"))
+    suite.addTest(testMiniStatement("verify_submit_button"))
+    suite.addTest(testMiniStatement("verify_reset_button"))
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
