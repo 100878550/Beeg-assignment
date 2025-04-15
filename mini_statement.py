@@ -34,7 +34,7 @@ class testMiniStatement(unittest.TestCase):
 
     def test_verify_account_number(self):
         driver = self.driver
-        driver.find_element(By.XPATH, "/html[1]/body[1]/div[3]/div[1]/ul[1]/li[13]/a[1]").get_attribute("href").click()
+        driver.find_element(By.LINK_TEXT, "Mini Statement").click()
 
         #MS1
         driver.find_element(By.NAME, "accountno").send_keys(Keys.TAB)

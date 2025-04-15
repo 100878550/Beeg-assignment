@@ -208,16 +208,4 @@ if __name__ == "__main__":
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 
-if __name__ == "__main__":
-    suite = unittest.TestSuite()
-    suite.addTest(testNewCustomer("test_manager_login"))
-    suite.addTest(testNewCustomer("test_verify_name_field"))
-    suite.addTest(testNewCustomer("test_verify_address_field"))
-    suite.addTest(testNewCustomer("test_verify_city_field"))
-    suite.addTest(testNewCustomer("test_verify_state_field"))
-    suite.addTest(testNewCustomer("test_verify_pin_field"))
-    suite.addTest(testNewCustomer("test_verify_mobile_number_field"))
-    suite.addTest(testNewCustomer("test_verify_email_field"))
-    suite.addTest(testNewCustomer("test_verify_password_field"))
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
+
