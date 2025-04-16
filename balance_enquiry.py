@@ -110,8 +110,9 @@ class testBalanceEnquiry(unittest.TestCase):
 if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(testBalanceEnquiry("test_verify_account_number"))
-    suite.addTest(testBalanceEnquiry("test_verify_submit_button"))
     suite.addTest(testBalanceEnquiry("test_verify_reset_button"))
+    suite.addTest(testBalanceEnquiry("test_verify_submit_button"))
+
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

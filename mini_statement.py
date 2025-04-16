@@ -121,8 +121,9 @@ if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(testMiniStatement("test_manager_login"))
     suite.addTest(testMiniStatement("test_verify_account_number"))
-    suite.addTest(testMiniStatement("test_verify_submit_button"))
     suite.addTest(testMiniStatement("test_verify_reset_button"))
+    suite.addTest(testMiniStatement("test_verify_submit_button"))
+
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

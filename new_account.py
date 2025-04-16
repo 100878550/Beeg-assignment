@@ -39,7 +39,7 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "state").send_keys("Test State")
         driver.find_element(By.NAME, "pinno").send_keys("123456")
         driver.find_element(By.NAME, "telephoneno").send_keys("123")
-        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer52994@gmail.com")
+        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer5d2er994@gmail.com")
         driver.find_element(By.NAME, "password").send_keys("123")
         driver.find_element(By.NAME, "sub").click()
         time.sleep(1)
@@ -158,7 +158,7 @@ class testNewAccount(unittest.TestCase):
         assert "" in text, "Reset Button Not Working"
         
     def test_submit_button(self):
-        customer_id = "17425"
+        customer_id = "51758"
         driver = self.driver
 
         #NA14 
@@ -177,20 +177,30 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "cusid").send_keys(customer_id)
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
         driver.find_element(By.NAME, "button2").click()
+        time.sleep(2)
         text = driver.find_element(By.XPATH,"/html[1]/body[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/p[1]").text
         
         assert "Account Generated Successfully!!!" in text, "bad"
         
+    def test_next_page(self):
+        driver = self.driver
+        #NA16
+        driver.find_element(By.LINK_TEXT, "Continue").click()
+        text = driver.find_element(By.XPATH, "/html/body/table/tbody/tr/td/table/tbody/tr[2]/td/marquee").text
+        assert "Welcome To Manager's Page of Guru99 Bank" in text, "Continue button did not work"
+
 
 
 if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(testNewAccount("test_manager_login"))
+    # suite.addTest(testNewAccount("test_create_customer"))
     suite.addTest(testNewAccount("test_verify_customer_id"))
     suite.addTest(testNewAccount("test_verify_initial_deposit"))
     suite.addTest(testNewAccount("test_verify_account_type_dropdown"))
     suite.addTest(testNewAccount("test_reset_button"))
     suite.addTest(testNewAccount("test_submit_button"))
+    suite.addTest(testNewAccount("test_next_page"))
   
 
     runner = unittest.TextTestRunner(verbosity=2)

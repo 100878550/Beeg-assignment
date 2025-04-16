@@ -88,38 +88,36 @@ class testDeleteAccount(unittest.TestCase):
     def test_verify_submit_button(self):
         driver = self.driver
 
+        # DA7 
+        driver.find_element(By.NAME, "accountno").clear()
+        driver.find_element(By.NAME, "accountno").send_keys("123456")
+        driver.find_element(By.NAME, "AccSubmit").click()
+        time.sleep(1)
+
+        alert = driver.switch_to.alert
+        alert.accept()
+        time.sleep(1)
+        alert = driver.switch_to.alert
+        alertText = alert.text
+        alert.accept()
+        assert "Account does not exist" in alertText
+
         # DA6 - valid account, may or may not exist
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("144234")
         driver.find_element(By.NAME, "AccSubmit").click()
         time.sleep(1)
+        alert = driver.switch_to.alert
+        alert.accept()
+        time.sleep(5)
+        alert = driver.switch_to.alert
+        alertText = alert.text
+        alert.accept()
+        assert "Account deleted successfully" in alertText or "Account does not exist" in alertText
 
-        try:
-            alert = driver.switch_to.alert
-            alert.accept()
-            time.sleep(1)
-            alert = driver.switch_to.alert
-            alertText = alert.text
-            alert.accept()
-            assert "Account deleted successfully" in alertText or "Account does not exist" in alertText
-        except NoAlertPresentException:
-            self.fail("Expected alert after submitting account number not found.")
 
-        # DA7 - re-delete same account
-        driver.find_element(By.NAME, "accountno").clear()
-        driver.find_element(By.NAME, "accountno").send_keys("144234")
-        driver.find_element(By.NAME, "AccSubmit").click()
-        time.sleep(1)
-        try:
-            alert = driver.switch_to.alert
-            alert.accept()
-            time.sleep(1)
-            alert = driver.switch_to.alert
-            alertText = alert.text
-            alert.accept()
-            assert "Account does not exist" in alertText
-        except NoAlertPresentException:
-            self.fail("Expected alert after re-submitting deleted account.")
+        
+
 
     def test_verify_reset_button(self):
         driver = self.driver
@@ -142,8 +140,9 @@ if __name__ == "__main__":
     suite.addTest(testDeleteAccount("test_manager_login"))
     suite.addTest(testDeleteAccount("test_create_account"))
     suite.addTest(testDeleteAccount("test_verify_account_number"))
-    suite.addTest(testDeleteAccount("test_verify_submit_button"))
     suite.addTest(testDeleteAccount("test_verify_reset_button"))
+    suite.addTest(testDeleteAccount("test_verify_submit_button"))
+
 
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

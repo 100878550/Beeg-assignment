@@ -135,6 +135,7 @@ if __name__ == "__main__":
     suite.addTest(testDeleteCustomer("test_manager_login"))
     suite.addTest(testDeleteCustomer("test_create_customer"))
     suite.addTest(testDeleteCustomer("test_verify_customer_id"))
+    suite.addTest(testDeleteCustomer("test_reset_button"))
     suite.addTest(testDeleteCustomer("test_submit_button"))
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)

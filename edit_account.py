@@ -70,20 +70,23 @@ class testEditAccount(unittest.TestCase):
 
     def test_verify_submit_button(self):
         driver = self.driver
-        #EA6 -- server error
-        driver.find_element(By.NAME, "accountno").clear()
-        driver.find_element(By.NAME, "accountno").send_keys("144230")
-        driver.find_element(By.NAME, "AccSubmit").click()
+        
         
         #EA7 
         time.sleep(3)
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("12345")
         driver.find_element(By.NAME, "AccSubmit").click()
+        time.sleep(2)
         alert = driver.switch_to.alert
         alertText = alert.text
         alert.accept()
         assert "Account does not exist" in alertText, "InValid Acount Number Error Message Missing"
+
+        #EA6 -- server error
+        driver.find_element(By.NAME, "accountno").clear()
+        driver.find_element(By.NAME, "accountno").send_keys("144230")
+        driver.find_element(By.NAME, "AccSubmit").click()
 
     def test_verify_reset_button(self):
         driver = self.driver
@@ -106,8 +109,9 @@ if __name__ == "__main__":
     suite = unittest.TestSuite()
     suite.addTest(testEditAccount("test_manager_login"))
     suite.addTest(testEditAccount("test_verify_account_number"))
-    suite.addTest(testEditAccount("test_verify_submit_button"))
     suite.addTest(testEditAccount("test_verify_reset_button"))
+    suite.addTest(testEditAccount("test_verify_submit_button"))
+    
 
 
     runner = unittest.TextTestRunner(verbosity=2)
