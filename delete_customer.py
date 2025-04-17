@@ -41,7 +41,7 @@ class testDeleteCustomer(unittest.TestCase):
         driver.find_element(By.NAME, "state").send_keys("Test State")
         driver.find_element(By.NAME, "pinno").send_keys("123456")
         driver.find_element(By.NAME, "telephoneno").send_keys("123")
-        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer44343@gmail.com")
+        driver.find_element(By.NAME, "emailid").send_keys("TestCustomer4343@gmail.com")
         driver.find_element(By.NAME, "password").send_keys("123")
         driver.find_element(By.NAME, "sub").click()
         time.sleep(5)
