@@ -173,13 +173,12 @@ class testCustomisedStatement(unittest.TestCase):
         driver.find_element(By.NAME, "AccSubmit").click()
         time.sleep(1)
 
-        try:
-            alert = driver.switch_to.alert
-            alertText = alert.text
-            alert.accept()
-            assert "Account does not exist" in alertText, "Invalid Account Alert Message Missing"
-        except NoAlertPresentException:
-            self.fail("Expected alert for invalid account was not shown.")
+
+        alert = driver.switch_to.alert
+        alertText = alert.text
+        alert.accept()
+        assert "Account does not exist" in alertText, "Invalid Account Alert Message Missing"
+
 
 
 

@@ -31,7 +31,7 @@ class testMiniStatement(unittest.TestCase):
         driver.find_element(By.NAME, "uid").send_keys("mngr618426")
         driver.find_element(By.NAME, "password").send_keys("mebedAz")
         driver.find_element(By.NAME, "btnLogin").click()
-
+        time.sleep(10)
     def test_verify_account_number(self):
         driver = self.driver
         driver.find_element(By.LINK_TEXT, "Mini Statement").click()
@@ -72,26 +72,26 @@ class testMiniStatement(unittest.TestCase):
     def test_verify_submit_button(self):
         driver = self.driver
 
-        #MS6 -- wasnt able to create account so dont have valid account
-        driver.find_element(By.NAME, "accountno").clear()
-        driver.find_element(By.NAME, "accountno").send_keys("123456")
-        driver.find_element(By.NAME, "AccSubmit").click()
-        alert = driver.switch_to.alert
-        alert.accept()
-        alert = driver.switch_to.alert
-        alertText = alert.text
-        alert.accept()
-        assert "Account deleted successfully" in alertText, "Valid Account Submit Not Working"
+ 
         #MS7
         driver.find_element(By.NAME, "accountno").clear()
         driver.find_element(By.NAME, "accountno").send_keys("123456")
         driver.find_element(By.NAME, "AccSubmit").click()
-        alert = driver.switch_to.alert
-        alert.accept()
+        time.sleep(5)
         alert = driver.switch_to.alert
         alertText = alert.text
         alert.accept()
         assert "Account does not exist" in alertText, "Invalid Account Submit Not Working"
+
+        #MS6
+        driver.find_element(By.NAME, "accountno").clear()
+        driver.find_element(By.NAME, "accountno").send_keys("144230")
+        driver.find_element(By.NAME, "AccSubmit").click()
+        time.sleep(10)
+        alert = driver.switch_to.alert
+        alertText = alert.text
+        alert.accept()
+        assert "Account deleted successfully" in alertText, "Valid Account Submit Not Working"
 
     def test_verify_reset_button(self):
         driver = self.driver

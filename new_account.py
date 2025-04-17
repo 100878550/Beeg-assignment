@@ -177,7 +177,7 @@ class testNewAccount(unittest.TestCase):
         driver.find_element(By.NAME, "cusid").send_keys(customer_id)
         driver.find_element(By.NAME, "inideposit").send_keys("123456")
         driver.find_element(By.NAME, "button2").click()
-        time.sleep(2)
+        time.sleep(52)
         text = driver.find_element(By.XPATH,"/html[1]/body[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/p[1]").text
         
         assert "Account Generated Successfully!!!" in text, "bad"
